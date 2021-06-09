@@ -19,7 +19,7 @@ using namespace std;
 
 #include "mongol.h"
 
-int readFile(const char* filename, int& NID, int& N1, int& N5, int& N7, string*& ID, string*& input1, string*& input2, string*& input3, string*& input4, string*& input5, string*& input6, string*& input7Matrix, string*& input7Str)
+int readFile(const char *filename, int &NID, int &N1, int &N5, int& k, string *&ID, string *&input1, string *&input2, string *&input3, string *&input4, string *&input5, string *&input6, string *&input7Matrix, string *&input7Str)
 {
     // This function is used to read the input file,
     // DO NOT MODIFY THIS FUNTION
@@ -27,7 +27,7 @@ int readFile(const char* filename, int& NID, int& N1, int& N5, int& N7, string*&
     ifstream myfile(filename);
     if (myfile.is_open())
     {
-        string* tmp = new string;
+        string *tmp = new string;
         getline(myfile, *tmp);
         NID = stoi(*tmp);
 
@@ -71,13 +71,13 @@ int readFile(const char* filename, int& NID, int& N1, int& N5, int& N7, string*&
         }
 
         getline(myfile, *tmp);
-        N7 = stoi(*tmp);
+        k = stoi(*tmp);
 
         input7Str = new string;
         getline(myfile, *input7Str);
 
-        input7Matrix = new string[N7];
-        for (int i = 0; i < N7; i++)
+        input7Matrix = new string[k];
+        for (int i = 0; i < k; i++)
         {
             getline(myfile, input7Matrix[i]);
         }
@@ -89,22 +89,23 @@ int readFile(const char* filename, int& NID, int& N1, int& N5, int& N7, string*&
         return 0;
 }
 
-int main(int argc, const char* argv[])
+int main(int argc, const char *argv[])
 {
-    const char* filename = "testcase.txt";
+    //Breakpoint
+    const char *filename = "testcase.txt";
 
-    int NID = -1, N1 = -1, N5 = -1, N7 = -1;
-    string* ID = nullptr;
-    string* input1 = nullptr;
-    string* input2 = nullptr;
-    string* input3 = nullptr;
-    string* input4 = nullptr;
-    string* input5 = nullptr;
-    string* input6 = nullptr;
-    string* input7Matrix = nullptr;
-    string* input7Str = nullptr;
+    int NID = -1, N1 = -1, N5 = -1, k = -1;
+    string *ID = nullptr;
+    string *input1 = nullptr;
+    string *input2 = nullptr;
+    string *input3 = nullptr;
+    string *input4 = nullptr;
+    string *input5 = nullptr;
+    string *input6 = nullptr;
+    string *input7Matrix = nullptr;
+    string *input7Str = nullptr;
 
-    bool isRead = readFile(filename, NID, N1, N5, N7, ID, input1, input2, input3, input4, input5, input6, input7Matrix, input7Str);
+    bool isRead = readFile(filename, NID, N1, N5, k, ID, input1, input2, input3, input4, input5, input6, input7Matrix, input7Str);
 
     if (!isRead)
     {
@@ -115,11 +116,11 @@ int main(int argc, const char* argv[])
     {
         cout << "Answer for task 1: " << readyForBattle(ID, NID, input1, N1) << endl;
         cout << "Answer for task 2: " << decode(input2[0], input2[1]) << endl;
-        cout << "Answer for task 3: " << findRoute(ID, NID, input3) << endl;
+        cout << "Answer for task 3: " << findRoute(*input3) << endl;
         cout << "Answer for task 4: " << decodeVfunction(input4[0], input4[1]) << endl;
         cout << "Answer for task 5: " << findBetrayals(input5, N5) << endl;
         cout << "Answer for task 6: " << attack(input6) << endl;
-        cout << "Answer for task 7: " << calculateNoOfWaitingDays(*input7Str, input7Matrix, N7) << endl;
+        cout << "Answer for task 7: " << calculateNoOfWaitingDays(*input7Str, input7Matrix, k) << endl;
     }
     return 0;
 }
